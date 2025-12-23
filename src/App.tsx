@@ -4,38 +4,12 @@ import { ShoppingCart, Plus, Minus, Trash2, ArrowLeft, CheckCircle, Utensils, Ma
 import { CATEGORIES, PRODUCTS, EXTRA_PROTEINS, EXTRA_TOPPINGS } from './constants';
 import { CartItem, Product, CategoryId, ViewState, OrderForm, OrderSummary, Extra } from './types';
 
-// --- Helper Components ---
+import { Home } from './views/Home'
+import { Success } from './views/Success'
 
-// Button Component
-const Button: React.FC<{
-  children: React.ReactNode;
-  onClick?: React.MouseEventHandler<HTMLButtonElement>;
-  variant?: 'primary' | 'secondary' | 'outline' | 'danger';
-  className?: string;
-  disabled?: boolean;
-  type?: "button" | "submit" | "reset";
-  fullWidth?: boolean;
-}> = ({ children, onClick, variant = 'primary', className = '', disabled, type = 'button', fullWidth }) => {
-  const baseClasses = "py-3 px-6 rounded-full font-medium transition-all duration-200 active:scale-95 flex items-center justify-center gap-2";
-  
-  const variants = {
-    primary: "bg-brand-orange text-white shadow-lg shadow-brand-orange/30 hover:bg-brand-light disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none disabled:active:scale-100",
-    secondary: "bg-white text-brand-dark shadow-md hover:shadow-lg border border-gray-100 disabled:opacity-50 disabled:cursor-not-allowed",
-    outline: "bg-transparent border-2 border-brand-orange text-brand-orange hover:bg-brand-orange/10 disabled:opacity-50 disabled:cursor-not-allowed",
-    danger: "bg-red-50 text-red-500 hover:bg-red-100 disabled:opacity-50 disabled:cursor-not-allowed"
-  };
+import Button from './components/Button'
 
-  return (
-    <button 
-      type={type}
-      className={`${baseClasses} ${variants[variant]} ${fullWidth ? 'w-full' : ''} ${className}`}
-      onClick={onClick}
-      disabled={disabled}
-    >
-      {children}
-    </button>
-  );
-};
+
 
 // Flying Image Component for Animation
 interface FlyingItem {
@@ -315,49 +289,6 @@ const App: React.FC = () => {
   };
 
   // --- Views ---
-
-  const HomeView = () => (
-    <div className="flex flex-col min-h-[calc(100vh-80px)] bg-white animate-fade-in">
-      {/* Hero Section */}
-      <div className="relative h-[60vh] w-full overflow-hidden">
-        <div className="absolute inset-0 bg-black/40 z-10"></div>
-        <img 
-          src="https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&fit=crop&q=80&w=1600" 
-          alt="Delicious Pasta" 
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 z-20 flex flex-col items-center justify-center text-center px-4">
-          <h1 className="font-serif text-6xl md:text-8xl text-white font-bold mb-4 drop-shadow-lg tracking-tight">
-            Pasta <span className="text-brand-orange italic">Prè-gō</span>
-          </h1>
-          <p className="text-white/90 text-lg md:text-xl max-w-lg mb-8 font-light">
-            Sabor italiano auténtico, ingredientes frescos y pasión en cada plato. Directo a tu puerta.
-          </p>
-          <Button onClick={() => setView('menu')} className="px-10 py-4 text-lg animate-bounce">
-            Hacer Pedido
-            <ChevronRight size={20} />
-          </Button>
-        </div>
-      </div>
-
-      {/* Highlights */}
-      <div className="py-16 px-4 md:px-8 max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
-        {[
-          { icon: <Utensils className="text-brand-orange" size={32} />, title: "Artesanal", desc: "Pasta fresca hecha a mano diariamente." },
-          { icon: <CheckCircle className="text-brand-orange" size={32} />, title: "Calidad", desc: "Ingredientes importados de Italia." },
-          { icon: <MapPin className="text-brand-orange" size={32} />, title: "Rápido", desc: "Entrega veloz en toda la ciudad." },
-        ].map((feature, idx) => (
-          <div key={idx} className="bg-gray-50 p-6 rounded-2xl text-center hover:shadow-lg transition-shadow">
-            <div className="bg-white w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm">
-              {feature.icon}
-            </div>
-            <h3 className="font-serif text-2xl text-brand-dark mb-2">{feature.title}</h3>
-            <p className="text-gray-500">{feature.desc}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
 
   const MenuView = () => {
     const filteredProducts = PRODUCTS.filter(p => p.categoryId === activeCategory);
@@ -764,46 +695,6 @@ const App: React.FC = () => {
     );
   };
 
-  const SuccessView = () => (
-    <div className="min-h-[80vh] flex items-center justify-center p-4 bg-gray-50">
-      <div className="bg-white p-8 rounded-3xl shadow-xl text-center max-w-md w-full border border-gray-100 relative overflow-hidden">
-        {/* Decorative background circle */}
-        <div className="absolute -top-10 -right-10 w-32 h-32 bg-brand-orange/10 rounded-full"></div>
-        <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-brand-orange/10 rounded-full"></div>
-        
-        <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-          <CheckCircle className="text-green-500" size={40} />
-        </div>
-        <h2 className="text-3xl font-serif font-bold text-brand-dark mb-2">¡Grazie Mille!</h2>
-        <p className="text-gray-500 mb-6">Tu pedido ha sido recibido y la cocina ya está trabajando en ello.</p>
-        
-        <div className="bg-gray-50 rounded-xl p-4 mb-8">
-          <p className="text-sm text-gray-400 uppercase tracking-wider mb-1">Número de Orden</p>
-          <p className="text-2xl font-mono font-bold text-brand-orange">{orderSummary?.orderNumber}</p>
-        </div>
-
-        <div className="space-y-2 text-left text-sm text-gray-600 mb-8 border-t border-b border-gray-100 py-4">
-           <div className="flex justify-between">
-             <span>Cliente:</span>
-             <span className="font-medium">{orderSummary?.customer.name}</span>
-           </div>
-           <div className="flex justify-between">
-             <span>Dirección:</span>
-             <span className="font-medium">{orderSummary?.customer.address}</span>
-           </div>
-           <div className="flex justify-between">
-             <span>Total:</span>
-             <span className="font-medium">${((orderSummary?.total || 0) + 2.50).toFixed(2)}</span>
-           </div>
-        </div>
-
-        <Button onClick={() => setView('home')} fullWidth variant="secondary">
-          Volver al Inicio
-        </Button>
-      </div>
-    </div>
-  );
-
   // --- Layout Wrapper ---
 
   return (
@@ -813,7 +704,7 @@ const App: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 h-full flex items-center justify-between">
           
           {/* Logo */}
-          <button onClick={() => setView('home')} className="flex items-center group">
+          <button onClick={() => setView('home')} className="cursor-pointer flex items-center group">
             <div className="font-serif text-2xl font-bold tracking-tight text-brand-dark">
               Pasta <span className="text-brand-orange italic group-hover:underline decoration-2 underline-offset-4">Prè-gō</span>
             </div>
@@ -822,14 +713,14 @@ const App: React.FC = () => {
           {/* Nav & Cart */}
           <div className="flex items-center gap-2 md:gap-6">
             <nav className="hidden md:flex gap-6 font-medium text-sm text-gray-600">
-              <button onClick={() => setView('home')} className={`hover:text-brand-orange ${view === 'home' ? 'text-brand-orange' : ''}`}>Inicio</button>
-              <button onClick={() => setView('menu')} className={`hover:text-brand-orange ${view === 'menu' ? 'text-brand-orange' : ''}`}>Menú</button>
+              <button onClick={() => setView('home')} className={`cursor-pointer hover:text-brand-orange ${view === 'home' ? 'text-brand-orange' : ''}`}>Inicio</button>
+              <button onClick={() => setView('menu')} className={`cursor-pointer hover:text-brand-orange ${view === 'menu' ? 'text-brand-orange' : ''}`}>Menú</button>
             </nav>
 
             <button 
               ref={cartBtnRef}
               onClick={() => setView('cart')}
-              className="relative p-2 rounded-full hover:bg-gray-100 transition-colors"
+              className="cursor-pointer relative p-2 rounded-full hover:bg-gray-100 transition-colors"
             >
               <ShoppingCart size={24} className={view === 'cart' ? 'text-brand-orange' : 'text-gray-700'} />
               {cartItemCount > 0 && (
@@ -844,11 +735,11 @@ const App: React.FC = () => {
 
       {/* Main Content */}
       <main className="animate-fade-in">
-        {view === 'home' && <HomeView />}
+        {view === "home" && <Home onGoToMenu={() => setView("menu")} />}
         {view === 'menu' && <MenuView />}
         {view === 'cart' && <CartView />}
         {view === 'checkout' && <CheckoutView />}
-        {view === 'success' && <SuccessView />}
+        {view === 'success' && <Success orderSummary={orderSummary} onGoHome={() => setView("home")} />}
       </main>
       
       {/* Customization Modal */}
