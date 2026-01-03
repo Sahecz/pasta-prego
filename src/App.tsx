@@ -1,7 +1,6 @@
 
-import React, { useState, useMemo, useEffect, useRef } from 'react';
-import { ShoppingCart, CheckCircle, Utensils, X } from 'lucide-react';
-import { EXTRA_PROTEINS, EXTRA_TOPPINGS } from './constants';
+import React, { useState, useMemo, useRef } from 'react';
+import { ShoppingCart } from 'lucide-react';
 import { CartItem, Product, CategoryId, ViewState, OrderForm, OrderSummary, Extra } from './types';
 
 import { Home } from './views/Home'
@@ -10,166 +9,8 @@ import { Checkout } from './views/Checkout'
 import { Menu } from './views/Menu';
 import { Cart } from './views/Cart';
 
-import Button from './components/Button'
-
-
-
-// Flying Image Component for Animation
-interface FlyingItem {
-  id: number;
-  src: string;
-  startRect: DOMRect;
-  targetRect: DOMRect;
-}
-
-const FlyingImage: React.FC<{ item: FlyingItem; onComplete: () => void }> = ({ item, onComplete }) => {
-  const [style, setStyle] = useState<React.CSSProperties>({
-    position: 'fixed',
-    top: item.startRect.top,
-    left: item.startRect.left,
-    width: item.startRect.width,
-    height: item.startRect.height,
-    opacity: 1,
-    zIndex: 9999,
-    pointerEvents: 'none',
-    transition: 'all 0.8s cubic-bezier(0.2, 1, 0.3, 1)',
-    borderRadius: '1rem',
-    objectFit: 'cover'
-  });
-
-  useEffect(() => {
-    // Trigger animation in next frame
-    requestAnimationFrame(() => {
-      setStyle(prev => ({
-        ...prev,
-        top: item.targetRect.top + (item.targetRect.height / 2) - 10,
-        left: item.targetRect.left + (item.targetRect.width / 2) - 10,
-        width: '20px',
-        height: '20px',
-        opacity: 0,
-        borderRadius: '50%'
-      }));
-    });
-
-    const timer = setTimeout(onComplete, 800);
-    return () => clearTimeout(timer);
-  }, [item, onComplete]);
-
-  return <img src={item.src} style={style} alt="" className="shadow-xl" />;
-};
-
-// Customization Modal
-interface ProductModalProps {
-  product: Product;
-  onClose: () => void;
-  onAddToCart: (product: Product, extras: Extra[], e: React.MouseEvent) => void;
-}
-
-const ProductModal: React.FC<ProductModalProps> = ({ product, onClose, onAddToCart }) => {
-  const [selectedExtras, setSelectedExtras] = useState<Extra[]>([]);
-
-  const toggleExtra = (extra: Extra) => {
-    setSelectedExtras(prev => {
-      const exists = prev.find(e => e.id === extra.id);
-      if (exists) {
-        return prev.filter(e => e.id !== extra.id);
-      }
-      return [...prev, extra];
-    });
-  };
-
-  const totalPrice = product.price + selectedExtras.reduce((sum, e) => sum + e.price, 0);
-
-  return (
-    <div className="fixed inset-0 z-[100] flex items-end md:items-center justify-center p-0 md:p-4">
-      <div className="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity" onClick={onClose}></div>
-      <div className="bg-white w-full md:max-w-lg md:rounded-3xl rounded-t-3xl shadow-2xl z-10 overflow-hidden flex flex-col max-h-[90vh] animate-fade-in-up">
-
-        {/* Header Image */}
-        <div className="relative h-48 flex-shrink-0">
-          <img src={product.image} alt={product.name} className="w-full h-full object-cover" />
-          <button
-            onClick={onClose}
-            className="absolute top-4 right-4 bg-white/90 p-2 rounded-full text-gray-800 hover:bg-white transition-colors"
-          >
-            <X size={20} />
-          </button>
-          <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/60 to-transparent p-4">
-            <h3 className="text-2xl font-serif font-bold text-white">{product.name}</h3>
-            <p className="text-white/90 text-sm">{product.description}</p>
-          </div>
-        </div>
-
-        {/* Scrollable Content */}
-        <div className="p-6 overflow-y-auto overflow-x-hidden">
-
-          {/* Proteins */}
-          <div className="mb-6">
-            <h4 className="font-bold text-gray-800 mb-3 flex items-center gap-2">
-              <Utensils size={18} className="text-brand-orange" /> Extra Proteína
-            </h4>
-            <div className="space-y-2">
-              {EXTRA_PROTEINS.map(extra => (
-                <label key={extra.id} className="flex items-center justify-between p-3 border rounded-xl cursor-pointer hover:bg-gray-50 transition-colors">
-                  <div className="flex items-center gap-3">
-                    <input
-                      type="checkbox"
-                      className="w-5 h-5 text-brand-orange rounded focus:ring-brand-orange border-gray-300"
-                      checked={selectedExtras.some(e => e.id === extra.id)}
-                      onChange={() => toggleExtra(extra)}
-                    />
-                    <span className="text-gray-700 font-medium">{extra.name}</span>
-                  </div>
-                  <span className="text-brand-orange font-bold">+${extra.price.toFixed(2)}</span>
-                </label>
-              ))}
-            </div>
-          </div>
-
-          {/* Toppings */}
-          <div className="mb-6">
-            <h4 className="font-bold text-gray-800 mb-3">Extra Toppings</h4>
-            <div className="grid grid-cols-2 gap-2">
-              {EXTRA_TOPPINGS.map(extra => (
-                <label key={extra.id} className={`
-                  flex flex-col p-3 border rounded-xl cursor-pointer transition-all
-                  ${selectedExtras.some(e => e.id === extra.id) ? 'border-brand-orange bg-orange-50' : 'border-gray-200 hover:bg-gray-50'}
-                `}>
-                  <div className="flex justify-between items-start mb-1">
-                    <span className="text-sm font-medium text-gray-700 leading-tight">{extra.name}</span>
-                    <input
-                      type="checkbox"
-                      className="hidden"
-                      checked={selectedExtras.some(e => e.id === extra.id)}
-                      onChange={() => toggleExtra(extra)}
-                    />
-                    {selectedExtras.some(e => e.id === extra.id) && <CheckCircle size={16} className="text-brand-orange" />}
-                  </div>
-                  <span className="text-xs text-gray-500">+${extra.price.toFixed(2)}</span>
-                </label>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Footer Actions */}
-        <div className="p-4 border-t border-gray-100 bg-gray-50 flex-shrink-0">
-          <Button
-            onClick={(e) => onAddToCart(product, selectedExtras, e)}
-            fullWidth
-            className="flex justify-between items-center group"
-          >
-            <span>Agregar al Pedido</span>
-            <span className="bg-white/20 px-3 py-1 rounded-full text-sm">
-              ${totalPrice.toFixed(2)}
-            </span>
-          </Button>
-        </div>
-      </div>
-    </div>
-  );
-};
-
+import { FlyingImage, FlyingItem } from './components/FlyingImage'
+import { ProductModal } from './components/ProductModal';
 
 // --- Main App Component ---
 
@@ -333,7 +174,7 @@ const App: React.FC = () => {
       <main className="animate-fade-in">
         {view === "home" && <Home onGoToMenu={() => setView("menu")} />}
         {view === 'menu' && <Menu onAddToCartClick={handleAddToCartClick} isAddingId={isAddingId} activeCategory={activeCategory} setActiveCategory={setActiveCategory} cartTotal={cartTotal} />}
-        {view === 'cart' && <Cart cart={cart} onRemoveFromCart={removeFromCart} onUpdateQuantity={updateQuantity} />}
+        {view === 'cart' && <Cart cart={cart} setView={setView} updateQuantity={updateQuantity} removeFromCart={removeFromCart} handleAddToCartClick={handleAddToCartClick} cartTotal={cartTotal} />}
         {view === 'checkout' && <Checkout onGoCart={() => setView('cart')} cartTotal={cartTotal} onPlaceOrder={handlePlaceOrder} />}
         {view === 'success' && <Success orderSummary={orderSummary} onGoHome={() => setView("home")} />}
       </main>
@@ -385,7 +226,7 @@ const App: React.FC = () => {
             </div>
           </div>
           <div className="max-w-7xl mx-auto px-4 mt-8 pt-8 border-t border-gray-800 text-center text-gray-500 text-xs">
-            © 2024 Pasta Prè-gō. Todos los derechos reservados.
+            © 2026 Pasta Prè-gō. Todos los derechos reservados.
           </div>
         </footer>
       )}
