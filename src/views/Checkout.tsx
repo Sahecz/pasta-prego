@@ -1,11 +1,15 @@
 import React, { useState, useMemo } from 'react';
 import { OrderForm } from '../types';
+import { AlertCircle, ArrowLeft, FileText, MapPin, Phone, User } from 'lucide-react';
+import Button from '../components/Button';
 
 type Props = {
     onGoCart: () => void;
+    cartTotal: number;
+    onPlaceOrder: (form: OrderForm) => void;
 }
 
-export const CheckoutView = ({onGoCart}: Props) => {
+export const Checkout = ({ onGoCart, cartTotal, onPlaceOrder }: Props) => {
     const [form, setForm] = useState<OrderForm>({ name: '', phone: '', address: '', notes: '' });
     const [touched, setTouched] = useState<Record<keyof OrderForm, boolean>>({
         name: false,
@@ -52,7 +56,7 @@ export const CheckoutView = ({onGoCart}: Props) => {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         if (isFormValid) {
-            handlePlaceOrder(form);
+            onPlaceOrder(form);
         } else {
             setTouched({
                 name: true,
