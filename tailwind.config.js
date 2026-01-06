@@ -10,6 +10,10 @@ export default {
           light: "#FB923C",
         },
       },
+      fontFamily: {
+        'sans': ['"DM Sans"', 'sans-serif'],
+        'serif': ['"Playfair Display"', 'serif'],
+      },
       keyframes: {
         fadeIn: { "0%": { opacity: 0 }, "100%": { opacity: 1 } },
         fadeInUp: {

@@ -3,17 +3,17 @@ import { CheckCircle, Plus } from "lucide-react";
 import { CATEGORIES, PRODUCTS } from "../constants";
 
 import Button from '../components/Button'
+import { useCartContext } from '../context/CartContext';
 import { Product } from "../types";
 
 type Props = {
     onAddToCartClick: (product: Product, e: React.MouseEvent) => void;
-    isAddingId: string | null;
     activeCategory: string;
     setActiveCategory: (category: string) => void;
-    cartTotal: number;
 }
 
-export const Menu = ({ onAddToCartClick, isAddingId, activeCategory, setActiveCategory, cartTotal }: Props) => {
+export const Menu = ({ onAddToCartClick, activeCategory, setActiveCategory }: Props) => {
+    const { isAddingId } = useCartContext();
     const filteredProducts = PRODUCTS.filter(p => p.categoryId === activeCategory);
 
     return (

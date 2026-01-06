@@ -1,20 +1,16 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { ChevronRight, Utensils, CheckCircle, MapPin } from 'lucide-react'
-import Button from '../components/Button'
 
-type Props = {
-    onGoToMenu: () => void;
-}
-
-export const Home = ({onGoToMenu}: Props) => {
+export const Home = () => {
   return (
     <div className="flex flex-col min-h-[calc(100vh-80px)] bg-white animate-fade-in">
       {/* Hero Section */}
       <div className="relative h-[60vh] w-full overflow-hidden">
         <div className="absolute inset-0 bg-black/40 z-10"></div>
-        <img 
-          src="https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&fit=crop&q=80&w=1600" 
-          alt="Delicious Pasta" 
+        <img
+          src="./public/images/hero-pasta.webp"
+          alt="Delicious Pasta"
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 z-20 flex flex-col items-center justify-center text-center px-4">
@@ -24,10 +20,10 @@ export const Home = ({onGoToMenu}: Props) => {
           <p className="text-white/90 text-lg md:text-xl max-w-lg mb-8 font-light">
             Sabor italiano auténtico, ingredientes frescos y pasión en cada plato. Directo a tu puerta.
           </p>
-          <Button onClick={onGoToMenu} className="cursor-pointer px-10 py-4 text-lg animate-bounce">
+          <Link to="/menu" className="bg-brand-orange text-white rounded-xl shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 transition-all font-bold cursor-pointer px-10 py-4 text-lg animate-bounce flex items-center gap-2">
             Hacer Pedido
             <ChevronRight size={20} />
-          </Button>
+          </Link>
         </div>
       </div>
 

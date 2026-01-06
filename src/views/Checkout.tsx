@@ -2,14 +2,16 @@ import React, { useState, useMemo } from 'react';
 import { OrderForm } from '../types';
 import { AlertCircle, ArrowLeft, FileText, MapPin, Phone, User } from 'lucide-react';
 import Button from '../components/Button';
+import { useCartContext } from '../context/CartContext';
+import { Link, useNavigate } from 'react-router-dom';
 
 type Props = {
-    onGoCart: () => void;
-    cartTotal: number;
     onPlaceOrder: (form: OrderForm) => void;
 }
 
-export const Checkout = ({ onGoCart, cartTotal, onPlaceOrder }: Props) => {
+export const Checkout = ({ onPlaceOrder }: Props) => {
+    const { cartTotal } = useCartContext();
+    const navigate = useNavigate();
     const [form, setForm] = useState<OrderForm>({ name: '', phone: '', address: '', notes: '' });
     const [touched, setTouched] = useState<Record<keyof OrderForm, boolean>>({
         name: false,
@@ -57,6 +59,7 @@ export const Checkout = ({ onGoCart, cartTotal, onPlaceOrder }: Props) => {
         e.preventDefault();
         if (isFormValid) {
             onPlaceOrder(form);
+            navigate('/success');
         } else {
             setTouched({
                 name: true,
@@ -77,9 +80,9 @@ export const Checkout = ({ onGoCart, cartTotal, onPlaceOrder }: Props) => {
 
     return (
         <div className="max-w-2xl mx-auto p-4 md:p-8">
-            <button onClick={onGoCart} className="flex items-center gap-2 text-gray-500 hover:text-brand-orange mb-6">
+            <Link to="/cart" className="inline-flex items-center gap-2 text-gray-500 hover:text-brand-orange mb-6 transition-colors">
                 <ArrowLeft size={20} /> Volver al carrito
-            </button>
+            </Link>
 
             <div className="bg-white p-8 rounded-2xl shadow-lg border-t-4 border-brand-orange">
                 <h2 className="text-2xl font-serif font-bold mb-6">Detalles de Entrega</h2>

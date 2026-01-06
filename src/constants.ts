@@ -35,7 +35,7 @@ export const PRODUCTS: Product[] = [
     description: 'Nuestra pasta fresca con salsa de tomate San Marzano y albahaca fresca.',
     price: 12.50,
     categoryId: 'pastas-clasicas',
-    image: 'https://images.unsplash.com/photo-1595295333158-4742f28fbd85?auto=format&fit=crop&q=80&w=800'
+    image: './public/images/products/spaghetti-pomodoro.webp'
   },
   {
     id: 'p2',
@@ -43,7 +43,7 @@ export const PRODUCTS: Product[] = [
     description: 'Cremosa salsa de parmesano reggiano y mantequilla.',
     price: 13.90,
     categoryId: 'pastas-clasicas',
-    image: 'https://images.unsplash.com/photo-1645112411341-6c4fd023714a?auto=format&fit=crop&q=80&w=800'
+    image: './public/images/products/fettuccine-alfredo.webp'
   },
   {
     id: 'p3',
@@ -51,7 +51,7 @@ export const PRODUCTS: Product[] = [
     description: 'Salsa de tomate picante con ajo y perejil.',
     price: 11.90,
     categoryId: 'pastas-clasicas',
-    image: 'https://images.unsplash.com/photo-1608835291093-394b0c943a75?auto=format&fit=crop&q=80&w=800'
+    image: './public/images/products/penne-arrabbiata.webp'
   },
   {
     id: 'p6',
@@ -59,7 +59,7 @@ export const PRODUCTS: Product[] = [
     description: 'La auténtica receta de Bologna, cocinada a fuego lento por 8 horas.',
     price: 15.50,
     categoryId: 'pastas-clasicas',
-    image: 'https://images.unsplash.com/photo-1626844131082-256783844137?auto=format&fit=crop&q=80&w=800'
+    image: './public/images/products/bolonesa-originale.webp'
   },
   {
     id: 'p7',
@@ -67,7 +67,7 @@ export const PRODUCTS: Product[] = [
     description: 'Doble crema, pimienta negra molida y extra queso.',
     price: 14.50,
     categoryId: 'pastas-clasicas',
-    image: 'https://images.unsplash.com/photo-1555949258-eb67b1ef0ceb?auto=format&fit=crop&q=80&w=800'
+    image: './public/images/products/alfredo-clasica.webp'
   },
   {
     id: 'p8',
@@ -75,9 +75,9 @@ export const PRODUCTS: Product[] = [
     description: 'Sin crema. Solo yema de huevo, pecorino, guanciale y pimienta negra.',
     price: 16.00,
     categoryId: 'pastas-clasicas',
-    image: 'https://images.unsplash.com/photo-1612874742237-6526221588e3?auto=format&fit=crop&q=80&w=800'
+    image: './public/images/products/carbonara-romana.webp'
   },
-  
+
   // Pastas Especiales
   {
     id: 'p4',
@@ -85,7 +85,7 @@ export const PRODUCTS: Product[] = [
     description: 'Rellenos de setas y trufa negra en salsa ligera de mantequilla y salvia.',
     price: 18.00,
     categoryId: 'pastas-especiales',
-    image: 'https://images.unsplash.com/photo-1587740986335-9c9974127494?auto=format&fit=crop&q=80&w=800'
+    image: './public/images/products/ravioli-de-trufa.webp'
   },
   {
     id: 'p5',
@@ -93,7 +93,7 @@ export const PRODUCTS: Product[] = [
     description: 'Capas de pasta fresca, boloñesa cocida a fuego lento y bechamel.',
     price: 16.50,
     categoryId: 'pastas-especiales',
-    image: 'https://images.unsplash.com/photo-1574868291053-126e9939663c?auto=format&fit=crop&q=80&w=800'
+    image: './public/images/products/lasagna-nona.webp'
   },
   {
     id: 'p9',
@@ -101,7 +101,7 @@ export const PRODUCTS: Product[] = [
     description: 'Fusión italo-mexicana. Pasta cremosa con un toque ahumado de chipotle.',
     price: 15.90,
     categoryId: 'pastas-especiales',
-    image: 'https://images.unsplash.com/photo-1563379926898-05f4575a45d8?auto=format&fit=crop&q=80&w=800'
+    image: './public/images/products/chipotle-di-mexico.webp'
   },
   {
     id: 'p10',
@@ -109,7 +109,7 @@ export const PRODUCTS: Product[] = [
     description: 'Salteada con pimientos, calabacín, berenjena y aceite de oliva virgen extra.',
     price: 14.90,
     categoryId: 'pastas-especiales',
-    image: 'https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&fit=crop&q=80&w=800'
+    image: './public/images/products/veggie-mediterranea.webp'
   },
   {
     id: 'p11',
@@ -117,7 +117,7 @@ export const PRODUCTS: Product[] = [
     description: 'Mezcla de hongos silvestres, porcini y aceite de trufa blanca.',
     price: 17.50,
     categoryId: 'pastas-especiales',
-    image: 'https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&q=80&w=800'
+    image: './public/images/products/funghi-supremo.webp'
   },
 
   // Salsas
@@ -127,7 +127,7 @@ export const PRODUCTS: Product[] = [
     description: 'Porción extra de nuestro pesto casero.',
     price: 3.50,
     categoryId: 'salsas',
-    image: 'https://images.unsplash.com/photo-1599818816757-41472852230a?auto=format&fit=crop&q=80&w=800'
+    image: './public/images/products/pesto-genovese.webp'
   },
   {
     id: 's2',
@@ -135,7 +135,7 @@ export const PRODUCTS: Product[] = [
     description: 'Ragú clásico de carne.',
     price: 4.50,
     categoryId: 'salsas',
-    image: 'https://images.unsplash.com/photo-1626844131082-256783844137?auto=format&fit=crop&q=80&w=800'
+    image: './public/images/products/bolanesa.webp'
   },
   // Bebidas
   {
@@ -144,7 +144,7 @@ export const PRODUCTS: Product[] = [
     description: 'Limonada casera con menta.',
     price: 4.00,
     categoryId: 'bebidas',
-    image: 'https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&q=80&w=800'
+    image: './public/images/products/limonada-siciliana.webp'
   },
   {
     id: 'b2',
@@ -152,7 +152,7 @@ export const PRODUCTS: Product[] = [
     description: 'Copa de Chianti clásico.',
     price: 6.00,
     categoryId: 'bebidas',
-    image: 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&q=80&w=800'
+    image: './public/images/products/vino-tinto.webp'
   },
   // Postres
   {
@@ -161,7 +161,7 @@ export const PRODUCTS: Product[] = [
     description: 'El clásico italiano con mascarpone y café espresso.',
     price: 7.50,
     categoryId: 'postres',
-    image: 'https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?auto=format&fit=crop&q=80&w=800'
+    image: './public/images/products/tiramisu.webp'
   },
   {
     id: 'd2',
@@ -169,6 +169,6 @@ export const PRODUCTS: Product[] = [
     description: 'Con coulis de frutos rojos.',
     price: 6.50,
     categoryId: 'postres',
-    image: 'https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&q=80&w=800'
+    image: './public/images/products/panna-cotta.webp'
   },
 ];
