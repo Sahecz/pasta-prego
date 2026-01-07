@@ -38,9 +38,8 @@ export default function Button({
   return (
     <button
       type={type}
-      className={`${baseClasses} ${variants[variant]} ${
-        fullWidth ? "w-full" : ""
-      } ${className}`}
+      className={`${baseClasses} ${variants[variant]} ${fullWidth ? "w-full" : ""
+        } ${className}`}
       onClick={onClick}
       disabled={disabled}
     >

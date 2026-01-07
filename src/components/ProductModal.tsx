@@ -29,7 +29,18 @@ export const ProductModal: React.FC<ProductModalProps> = ({ product, onClose, on
 
     return (
         <div className="fixed inset-0 z-[100] flex items-end md:items-center justify-center p-0 md:p-4">
-            <div className="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity" onClick={onClose}></div>
+            <div
+                className="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity cursor-pointer"
+                onClick={onClose}
+                role="button"
+                tabIndex={0}
+                aria-label="Cerrar modal"
+                onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        onClose();
+                    }
+                }}
+            ></div>
             <div className="bg-white w-full md:max-w-lg md:rounded-3xl rounded-t-3xl shadow-2xl z-10 overflow-hidden flex flex-col max-h-[90vh] animate-fade-in-up">
 
                 {/* Header Image */}

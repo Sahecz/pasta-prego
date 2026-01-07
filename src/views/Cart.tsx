@@ -6,6 +6,8 @@ import Button from '../components/Button';
 import { useCartContext } from '../context/CartContext';
 import { useNavigate } from 'react-router-dom';
 
+import { SEO } from '../components/SEO';
+
 interface Props {
     handleAddToCartClick: (product: Product, e: React.MouseEvent) => void;
 }
@@ -43,15 +45,15 @@ export const Cart: React.FC<Props> = ({
 
     return (
         <div className="max-w-7xl mx-auto p-4 md:p-10">
+            <SEO
+                title="Pasta Prè-gō | Carrito"
+                description="Revisa tu pedido y completa el proceso de pago."
+                noIndex={true}
+            />
             <h2 className="text-2xl md:text-4xl font-serif font-bold text-brand-dark mb-6 md:mb-10">Tu Pedido</h2>
 
-            {/* Grid Layout: 
-                Mobile: 1 column (Order: Items, Summary, Suggestions) relies on Source Order.
-                Desktop: 2 columns [1fr, 22rem]. Summary moves to col 2, row 1, span 2. Items col 1 row 1. Suggestions col 1 row 2.
-            */}
             <div className="grid grid-cols-1 lg:grid-cols-[1fr_22rem] gap-8 md:gap-10 items-start">
 
-                {/* 1. Item List (Mobile: 1st, Desktop: Col 1 Row 1) */}
                 <div className="space-y-4 md:space-y-5">
                     {cart.map(item => {
                         const itemBasePrice = item.price;
@@ -156,7 +158,6 @@ export const Cart: React.FC<Props> = ({
                     </div>
                 </div>
 
-                {/* 3. Suggestions Section (Mobile: 3rd, Desktop: Col 1 Row 2) */}
                 {suggestions.length > 0 && (
                     <div className="lg:col-start-1">
                         <div className="border-t border-gray-100 pt-6 md:pt-8 mt-2 md:mt-0">

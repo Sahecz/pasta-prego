@@ -2,14 +2,21 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { ChevronRight, Utensils, CheckCircle, MapPin } from 'lucide-react'
 
+import { SEO } from '../components/SEO'
+
 export const Home = () => {
   return (
     <div className="flex flex-col min-h-[calc(100vh-80px)] bg-white animate-fade-in">
+      <SEO
+        title="Pasta Prè-gō | Inicio"
+        description="Pide la mejor pasta artesanal de la ciudad. Hecha a mano y entregada en minutos."
+        image="./images/hero-pasta.webp"
+      />
       {/* Hero Section */}
       <div className="relative h-[60vh] w-full overflow-hidden">
         <div className="absolute inset-0 bg-black/40 z-10"></div>
         <img
-          src="./public/images/hero-pasta.webp"
+          src="./images/hero-pasta.webp"
           alt="Delicious Pasta"
           className="w-full h-full object-cover"
         />

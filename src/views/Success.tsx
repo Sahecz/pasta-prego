@@ -3,6 +3,7 @@ import { CheckCircle } from 'lucide-react'
 import Button from '../components/Button'
 import { OrderSummary } from '../types'
 import { useNavigate } from 'react-router-dom'
+import { SEO } from '../components/SEO'
 
 type Props = {
   orderSummary: OrderSummary;
@@ -13,6 +14,11 @@ export const Success = ({ orderSummary }: Props) => {
 
   return (
     <div className="min-h-[80vh] flex items-center justify-center p-4 bg-gray-50">
+      <SEO
+        title="Pasta Prè-gō | Pedido Exitoso"
+        description="Tu pedido ha sido recibido."
+        noIndex={true}
+      />
       <div className="bg-white p-8 rounded-3xl shadow-xl text-center max-w-md w-full border border-gray-100 relative overflow-hidden">
         {/* Decorative background circle */}
         <div className="absolute -top-10 -right-10 w-32 h-32 bg-brand-orange/10 rounded-full"></div>

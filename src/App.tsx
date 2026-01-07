@@ -152,7 +152,8 @@ const App: React.FC = () => {
           <div>
             <h4 className="font-bold mb-4 uppercase tracking-wider text-sm text-gray-300">Contacto</h4>
             <p className="text-gray-400 text-sm">
-              <span className="block mb-1">Blvrd Constitución 677-B, Las Margaritas, Torreón, Coah.</span>
+              <span className="block mb-1">Blvrd Constitución 677-B, Las Margaritas.</span>
+              <span className="block mb-1">Torreón, Coah.</span>
               <span className="block mb-1">pastapregotrc@gmail.com</span>
               <span className="block">+52 pasta</span>
             </p>

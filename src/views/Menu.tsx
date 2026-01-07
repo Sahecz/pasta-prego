@@ -6,6 +6,8 @@ import Button from '../components/Button'
 import { useCartContext } from '../context/CartContext';
 import { Product } from "../types";
 
+import { SEO } from '../components/SEO';
+
 type Props = {
     onAddToCartClick: (product: Product, e: React.MouseEvent) => void;
     activeCategory: string;
@@ -18,6 +20,11 @@ export const Menu = ({ onAddToCartClick, activeCategory, setActiveCategory }: Pr
 
     return (
         <div className="bg-gray-50 min-h-screen pb-24">
+            <SEO
+                title="Pasta Prè-gō | Menú"
+                description="Explora nuestra selección de pastas frescas, salsas caseras y especialidades italianas."
+                image="/images/hero-pasta.webp"
+            />
             {/* Categories Sticky Header */}
             <div className="sticky top-[70px] z-30 bg-white shadow-sm pt-2 pb-0 overflow-x-auto no-scrollbar">
                 <div className="flex px-4 min-w-max gap-4 pb-2 md:justify-center">

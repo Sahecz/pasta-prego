@@ -35,7 +35,7 @@ export const PRODUCTS: Product[] = [
     description: 'Nuestra pasta fresca con salsa de tomate San Marzano y albahaca fresca.',
     price: 12.50,
     categoryId: 'pastas-clasicas',
-    image: './public/images/products/spaghetti-pomodoro.webp'
+    image: './images/products/spaghetti-pomodoro.webp'
   },
   {
     id: 'p2',
@@ -43,7 +43,7 @@ export const PRODUCTS: Product[] = [
     description: 'Cremosa salsa de parmesano reggiano y mantequilla.',
     price: 13.90,
     categoryId: 'pastas-clasicas',
-    image: './public/images/products/fettuccine-alfredo.webp'
+    image: './images/products/fettuccine-alfredo.webp'
   },
   {
     id: 'p3',
@@ -51,7 +51,7 @@ export const PRODUCTS: Product[] = [
     description: 'Salsa de tomate picante con ajo y perejil.',
     price: 11.90,
     categoryId: 'pastas-clasicas',
-    image: './public/images/products/penne-arrabbiata.webp'
+    image: './images/products/penne-arrabbiata.webp'
   },
   {
     id: 'p6',
@@ -59,7 +59,7 @@ export const PRODUCTS: Product[] = [
     description: 'La auténtica receta de Bologna, cocinada a fuego lento por 8 horas.',
     price: 15.50,
     categoryId: 'pastas-clasicas',
-    image: './public/images/products/bolonesa-originale.webp'
+    image: './images/products/bolonesa-originale.webp'
   },
   {
     id: 'p7',
@@ -67,7 +67,7 @@ export const PRODUCTS: Product[] = [
     description: 'Doble crema, pimienta negra molida y extra queso.',
     price: 14.50,
     categoryId: 'pastas-clasicas',
-    image: './public/images/products/alfredo-clasica.webp'
+    image: './images/products/alfredo-clasica.webp'
   },
   {
     id: 'p8',
@@ -75,7 +75,7 @@ export const PRODUCTS: Product[] = [
     description: 'Sin crema. Solo yema de huevo, pecorino, guanciale y pimienta negra.',
     price: 16.00,
     categoryId: 'pastas-clasicas',
-    image: './public/images/products/carbonara-romana.webp'
+    image: './images/products/carbonara-romana.webp'
   },
 
   // Pastas Especiales
@@ -85,7 +85,7 @@ export const PRODUCTS: Product[] = [
     description: 'Rellenos de setas y trufa negra en salsa ligera de mantequilla y salvia.',
     price: 18.00,
     categoryId: 'pastas-especiales',
-    image: './public/images/products/ravioli-de-trufa.webp'
+    image: './images/products/ravioli-de-trufa.webp'
   },
   {
     id: 'p5',
@@ -93,7 +93,7 @@ export const PRODUCTS: Product[] = [
     description: 'Capas de pasta fresca, boloñesa cocida a fuego lento y bechamel.',
     price: 16.50,
     categoryId: 'pastas-especiales',
-    image: './public/images/products/lasagna-nona.webp'
+    image: './images/products/lasagna-nona.webp'
   },
   {
     id: 'p9',
@@ -101,7 +101,7 @@ export const PRODUCTS: Product[] = [
     description: 'Fusión italo-mexicana. Pasta cremosa con un toque ahumado de chipotle.',
     price: 15.90,
     categoryId: 'pastas-especiales',
-    image: './public/images/products/chipotle-di-mexico.webp'
+    image: './images/products/chipotle-di-mexico.webp'
   },
   {
     id: 'p10',
@@ -109,7 +109,7 @@ export const PRODUCTS: Product[] = [
     description: 'Salteada con pimientos, calabacín, berenjena y aceite de oliva virgen extra.',
     price: 14.90,
     categoryId: 'pastas-especiales',
-    image: './public/images/products/veggie-mediterranea.webp'
+    image: './images/products/veggie-mediterranea.webp'
   },
   {
     id: 'p11',
@@ -117,7 +117,7 @@ export const PRODUCTS: Product[] = [
     description: 'Mezcla de hongos silvestres, porcini y aceite de trufa blanca.',
     price: 17.50,
     categoryId: 'pastas-especiales',
-    image: './public/images/products/funghi-supremo.webp'
+    image: './images/products/funghi-supremo.webp'
   },
 
   // Salsas
@@ -127,7 +127,7 @@ export const PRODUCTS: Product[] = [
     description: 'Porción extra de nuestro pesto casero.',
     price: 3.50,
     categoryId: 'salsas',
-    image: './public/images/products/pesto-genovese.webp'
+    image: './images/products/pesto-genovese.webp'
   },
   {
     id: 's2',
@@ -135,7 +135,7 @@ export const PRODUCTS: Product[] = [
     description: 'Ragú clásico de carne.',
     price: 4.50,
     categoryId: 'salsas',
-    image: './public/images/products/bolanesa.webp'
+    image: './images/products/bolanesa.webp'
   },
   // Bebidas
   {
@@ -144,7 +144,7 @@ export const PRODUCTS: Product[] = [
     description: 'Limonada casera con menta.',
     price: 4.00,
     categoryId: 'bebidas',
-    image: './public/images/products/limonada-siciliana.webp'
+    image: './images/products/limonada-siciliana.webp'
   },
   {
     id: 'b2',
@@ -152,7 +152,7 @@ export const PRODUCTS: Product[] = [
     description: 'Copa de Chianti clásico.',
     price: 6.00,
     categoryId: 'bebidas',
-    image: './public/images/products/vino-tinto.webp'
+    image: './images/products/vino-tinto.webp'
   },
   // Postres
   {
@@ -161,7 +161,7 @@ export const PRODUCTS: Product[] = [
     description: 'El clásico italiano con mascarpone y café espresso.',
     price: 7.50,
     categoryId: 'postres',
-    image: './public/images/products/tiramisu.webp'
+    image: './images/products/tiramisu.webp'
   },
   {
     id: 'd2',
@@ -169,6 +169,6 @@ export const PRODUCTS: Product[] = [
     description: 'Con coulis de frutos rojos.',
     price: 6.50,
     categoryId: 'postres',
-    image: './public/images/products/panna-cotta.webp'
+    image: './images/products/panna-cotta.webp'
   },
 ];
