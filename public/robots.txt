@@ -1,5 +1,6 @@
 User-agent: *
 Allow: /
+Allow: /menu
 Disallow: /cart
 Disallow: /checkout
 Disallow: /success
