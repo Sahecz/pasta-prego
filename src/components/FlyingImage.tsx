@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { FLYING_ANIMATION_DURATION_MS, FLYING_ANIMATION_EASING } from '../constants';
 
-
-// Flying Image Component for Animation
 export interface FlyingItem {
     id: number;
     src: string;
@@ -9,7 +8,12 @@ export interface FlyingItem {
     targetRect: DOMRect;
 }
 
-export const FlyingImage: React.FC<{ item: FlyingItem; onComplete: () => void }> = ({ item, onComplete }) => {
+interface FlyingImageProps {
+    item: FlyingItem;
+    onComplete: () => void;
+}
+
+export const FlyingImage: React.FC<FlyingImageProps> = ({ item, onComplete }) => {
     const [style, setStyle] = useState<React.CSSProperties>({
         position: 'fixed',
         top: item.startRect.top,
@@ -19,7 +23,7 @@ export const FlyingImage: React.FC<{ item: FlyingItem; onComplete: () => void }>
         opacity: 1,
         zIndex: 9999,
         pointerEvents: 'none',
-        transition: 'all 0.8s cubic-bezier(0.2, 1, 0.3, 1)',
+        transition: `all ${FLYING_ANIMATION_DURATION_MS}ms ${FLYING_ANIMATION_EASING}`,
         borderRadius: '1rem',
         objectFit: 'cover'
     });
@@ -31,14 +35,14 @@ export const FlyingImage: React.FC<{ item: FlyingItem; onComplete: () => void }>
                 ...prev,
                 top: item.targetRect.top + (item.targetRect.height / 2) - 10,
                 left: item.targetRect.left + (item.targetRect.width / 2) - 10,
-                width: '20px',
-                height: '20px',
+                width: 20,
+                height: 20,
                 opacity: 0,
                 borderRadius: '50%'
             }));
         });
 
-        const timer = setTimeout(onComplete, 800);
+        const timer = setTimeout(onComplete, FLYING_ANIMATION_DURATION_MS);
         return () => clearTimeout(timer);
     }, [item, onComplete]);
 

@@ -4,7 +4,7 @@ import { useCartContext } from './context/CartContext';
 import { ShoppingCart } from 'lucide-react';
 import { Product, CategoryId, OrderForm, OrderSummary, Extra } from './types';
 
-import { FlyingImage } from './components/FlyingImage'
+import { FlyingImage } from './components/FlyingImage';
 import { ProductModal } from './components/ProductModal';
 
 const Home = React.lazy(() => import('./views/Home').then(module => ({ default: module.Home })));
@@ -13,14 +13,12 @@ const Cart = React.lazy(() => import('./views/Cart').then(module => ({ default: 
 const Checkout = React.lazy(() => import('./views/Checkout').then(module => ({ default: module.Checkout })));
 const Success = React.lazy(() => import('./views/Success').then(module => ({ default: module.Success })));
 
-// --- Main App Component ---
-
 const App: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState<CategoryId>('pastas-clasicas');
   const [orderSummary, setOrderSummary] = useState<OrderSummary | null>(null);
 
   // Customization State
-  const [customizingProduct, setCustomizingProduct] = useState<Product | null>(null);
+  const [customizingProduct, setCustomizingProduct] = useState<{ product: Product; imageRect: DOMRect } | null>(null);
 
   // Cart Hook
   const {
@@ -34,21 +32,19 @@ const App: React.FC = () => {
     removeFlyingItem
   } = useCartContext();
 
-  // Actions
-
-  // Handle Click on "Add" button in Menu
-  const handleAddToCartClick = (product: Product, e: React.MouseEvent) => {
+  // Handle Click on "Add" button in Menu/Cart
+  const handleAddToCartClick = (product: Product, imageRect: DOMRect) => {
     // If it's a pasta, open customization modal
     if (product.categoryId === 'pastas-clasicas' || product.categoryId === 'pastas-especiales') {
-      setCustomizingProduct(product);
+      setCustomizingProduct({ product, imageRect });
     } else {
       // Otherwise add directly
-      addToCart(product, [], e);
+      addToCart(product, [], { imageRect });
     }
   };
 
-  const onAddToCartWrapper = (product: Product, extras: Extra[], e?: React.MouseEvent) => {
-    addToCart(product, extras, e);
+  const onAddToCartFromModal = (product: Product, extras: Extra[], imageRect: DOMRect) => {
+    addToCart(product, extras, { imageRect });
     setCustomizingProduct(null);
   };
 
@@ -63,7 +59,6 @@ const App: React.FC = () => {
     clearCart();
   };
 
-  // --- Layout Wrapper ---
   return (
     <div className="min-h-screen bg-gray-50 text-brand-dark font-sans selection:bg-brand-orange selection:text-white">
       {/* Header */}
@@ -116,9 +111,9 @@ const App: React.FC = () => {
       {/* Customization Modal */}
       {customizingProduct && (
         <ProductModal
-          product={customizingProduct}
+          product={customizingProduct.product}
           onClose={() => setCustomizingProduct(null)}
-          onAddToCart={onAddToCartWrapper}
+          onAddToCart={onAddToCartFromModal}
         />
       )}
 

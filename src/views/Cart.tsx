@@ -3,18 +3,16 @@ import { ShoppingCart, Minus, Plus, Trash2 } from 'lucide-react';
 import { PRODUCTS } from '../constants';
 import { Product } from '../types';
 import Button from '../components/Button';
+import { SuggestionCard } from '../components/SuggestionCard';
 import { useCartContext } from '../context/CartContext';
 import { useNavigate } from 'react-router-dom';
-
 import { SEO } from '../components/SEO';
 
-interface Props {
-    handleAddToCartClick: (product: Product, e: React.MouseEvent) => void;
+interface CartProps {
+    handleAddToCartClick: (product: Product, imageRect: DOMRect) => void;
 }
 
-export const Cart: React.FC<Props> = ({
-    handleAddToCartClick,
-}) => {
+export const Cart: React.FC<CartProps> = ({ handleAddToCartClick }) => {
     const { cart, updateQuantity, removeFromCart, cartTotal } = useCartContext();
     const navigate = useNavigate();
 
@@ -91,7 +89,7 @@ export const Cart: React.FC<Props> = ({
                                                             <span>${itemTotal.toFixed(2)}</span>
                                                         </div>
                                                     </div>
-                                                    <div className="absolute top-full right-4 -mt-1 border-8 border-transparent border-t-brand-dark"></div>
+                                                    <div className="absolute top-full right-4 -mt-1 border-8 border-transparent border-t-brand-dark" />
                                                 </div>
                                             </div>
                                         </div>
@@ -132,11 +130,11 @@ export const Cart: React.FC<Props> = ({
                                     </div>
                                 </div>
                             </div>
-                        )
+                        );
                     })}
                 </div>
 
-                {/* 2. Summary & Action (Mobile: 2nd, Desktop: Col 2 Row 1 Spanning 2) */}
+                {/* Summary & Action */}
                 <div className="lg:col-start-2 lg:row-start-1 lg:row-span-2 h-fit md:sticky md:top-24 z-0">
                     <div className="bg-white p-6 md:p-8 rounded-3xl shadow-lg border border-gray-100">
                         <h3 className="font-bold text-xl md:text-2xl mb-4 md:mb-6">Resumen</h3>
@@ -164,26 +162,11 @@ export const Cart: React.FC<Props> = ({
                             <h3 className="font-serif font-bold text-xl md:text-2xl text-brand-dark mb-4 md:mb-6">También te podría interesar</h3>
                             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-6">
                                 {suggestions.map(product => (
-                                    <div key={product.id} className="bg-white p-3 md:p-4 rounded-2xl border border-gray-100 flex flex-col gap-3 md:gap-4 group hover:shadow-lg transition-all">
-                                        <div className="relative h-24 md:h-32 rounded-xl overflow-hidden">
-                                            <img
-                                                src={product.image}
-                                                alt={product.name}
-                                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                                            />
-                                        </div>
-                                        <div className="flex-1">
-                                            <h4 className="font-bold text-base md:text-lg text-gray-800 line-clamp-1 mb-1">{product.name}</h4>
-                                            <p className="text-xs md:text-sm text-gray-500 mb-2 md:mb-3">${product.price.toFixed(2)}</p>
-                                            <Button
-                                                onClick={(e) => handleAddToCartClick(product, e)}
-                                                variant="outline"
-                                                className="w-full text-xs md:text-sm py-2"
-                                            >
-                                                <Plus size={16} className="md:w-[18px] md:h-[18px]" /> Agregar
-                                            </Button>
-                                        </div>
-                                    </div>
+                                    <SuggestionCard
+                                        key={product.id}
+                                        product={product}
+                                        onAddClick={handleAddToCartClick}
+                                    />
                                 ))}
                             </div>
                         </div>

@@ -1,19 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Extra, Product } from '../types';
-
 import { CheckCircle, Utensils, X } from 'lucide-react';
 import { EXTRA_PROTEINS, EXTRA_TOPPINGS } from '../constants';
 import Button from './Button';
 
-// Customization Modal
 interface ProductModalProps {
     product: Product;
     onClose: () => void;
-    onAddToCart: (product: Product, extras: Extra[], e: React.MouseEvent) => void;
+    onAddToCart: (product: Product, extras: Extra[], imageRect: DOMRect) => void;
 }
 
 export const ProductModal: React.FC<ProductModalProps> = ({ product, onClose, onAddToCart }) => {
     const [selectedExtras, setSelectedExtras] = useState<Extra[]>([]);
+    const imageRef = useRef<HTMLImageElement>(null);
 
     const toggleExtra = (extra: Extra) => {
         setSelectedExtras(prev => {
@@ -23,6 +22,13 @@ export const ProductModal: React.FC<ProductModalProps> = ({ product, onClose, on
             }
             return [...prev, extra];
         });
+    };
+
+    const handleAddToCart = () => {
+        const imageRect = imageRef.current?.getBoundingClientRect();
+        if (imageRect) {
+            onAddToCart(product, selectedExtras, imageRect);
+        }
     };
 
     const totalPrice = product.price + selectedExtras.reduce((sum, e) => sum + e.price, 0);
@@ -40,12 +46,17 @@ export const ProductModal: React.FC<ProductModalProps> = ({ product, onClose, on
                         onClose();
                     }
                 }}
-            ></div>
+            />
             <div className="bg-white w-full md:max-w-lg md:rounded-3xl rounded-t-3xl shadow-2xl z-10 overflow-hidden flex flex-col max-h-[90vh] animate-fade-in-up">
 
                 {/* Header Image */}
                 <div className="relative h-48 flex-shrink-0">
-                    <img src={product.image} alt={product.name} className="w-full h-full object-cover" />
+                    <img
+                        ref={imageRef}
+                        src={product.image}
+                        alt={product.name}
+                        className="w-full h-full object-cover"
+                    />
                     <button
                         onClick={onClose}
                         className="absolute top-4 right-4 bg-white/90 p-2 rounded-full text-gray-800 hover:bg-white transition-colors"
@@ -89,10 +100,15 @@ export const ProductModal: React.FC<ProductModalProps> = ({ product, onClose, on
                         <h4 className="font-bold text-gray-800 mb-3">Extra Toppings</h4>
                         <div className="grid grid-cols-2 gap-2">
                             {EXTRA_TOPPINGS.map(extra => (
-                                <label key={extra.id} className={`
-                  flex flex-col p-3 border rounded-xl cursor-pointer transition-all
-                  ${selectedExtras.some(e => e.id === extra.id) ? 'border-brand-orange bg-orange-50' : 'border-gray-200 hover:bg-gray-50'}
-                `}>
+                                <label
+                                    key={extra.id}
+                                    className={`
+                                        flex flex-col p-3 border rounded-xl cursor-pointer transition-all
+                                        ${selectedExtras.some(e => e.id === extra.id)
+                                            ? 'border-brand-orange bg-orange-50'
+                                            : 'border-gray-200 hover:bg-gray-50'}
+                                    `}
+                                >
                                     <div className="flex justify-between items-start mb-1">
                                         <span className="text-sm font-medium text-gray-700 leading-tight">{extra.name}</span>
                                         <input
@@ -101,7 +117,9 @@ export const ProductModal: React.FC<ProductModalProps> = ({ product, onClose, on
                                             checked={selectedExtras.some(e => e.id === extra.id)}
                                             onChange={() => toggleExtra(extra)}
                                         />
-                                        {selectedExtras.some(e => e.id === extra.id) && <CheckCircle size={16} className="text-brand-orange" />}
+                                        {selectedExtras.some(e => e.id === extra.id) && (
+                                            <CheckCircle size={16} className="text-brand-orange" />
+                                        )}
                                     </div>
                                     <span className="text-xs text-gray-500">+${extra.price.toFixed(2)}</span>
                                 </label>
@@ -113,9 +131,9 @@ export const ProductModal: React.FC<ProductModalProps> = ({ product, onClose, on
                 {/* Footer Actions */}
                 <div className="p-4 border-t border-gray-100 bg-gray-50 flex-shrink-0">
                     <Button
-                        onClick={(e) => onAddToCart(product, selectedExtras, e)}
+                        onClick={handleAddToCart}
                         fullWidth
-                        className="flex justify-between items-center group"
+                        className="flex justify-between items-center"
                     >
                         <span>Agregar al Pedido</span>
                         <span className="bg-white/20 px-3 py-1 rounded-full text-sm">
